@@ -67,6 +67,7 @@ class MyManager:
 
     def trigger_new_case(self, user, text, lat, lon, image):
         create_sf_ticket(user, text, lat, lon)
+        print "Created new Ticket!"
 
     def checking_possible_spam(self):
         pass

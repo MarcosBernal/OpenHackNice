@@ -1,10 +1,11 @@
 import requests
+from authentication_keys import *
 
 url = "http://droneapi.ddns.net:1235/vehicle/8ce02f05"
 
 headers = {
     'cache-control': "no-cache",
-    'postman-token': "4d64b78e-e386-0d7b-0959-5e089e498505"
+    'postman-token': postman_token
     }
 
 response = requests.request("GET", url, headers=headers)
