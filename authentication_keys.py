@@ -1,5 +1,5 @@
 # For SalesForce App
-authorization= X
-postman_token= X
+authorization= NOT_DEFINED
+postman_token= NOT_DEFINED
 
 
