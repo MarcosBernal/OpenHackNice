@@ -3,3 +3,6 @@
 
 # Json files
 *.json
+
+# IDE files
+*.idea

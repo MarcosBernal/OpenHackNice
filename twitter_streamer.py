@@ -12,7 +12,7 @@ class MyListener(StreamListener):
 
     def on_data(self, data):
         try:
-            with open(self.file_name, 'a') as f:
+            with open(self.file_name, 'a') as f:                             # Storing new tweet in a file
                 f.write(data)
                 tweet = json.loads(data.decode('utf-8'))
                 print("Received new tweet", tweet['text'], tweet['user'])
@@ -62,12 +62,15 @@ class MyManager:
         self.trigger_new_case(user, text, position[0], position[1], image)
 
     def post_tweet(self, tweet):
-        if len(tweet) < 140:
-            self.api.update_status(status=tweet)
+        pass
+    #    if len(tweet) < 140:
+    #        self.api.update_status(status=tweet)
 
     def trigger_new_case(self, user, text, lat, lon, image):
-        create_sf_ticket(user, text, lat, lon)
-        print "Created new Ticket!"
+        print "Created?? new Ticket!"
+        return
+    #    create_sf_ticket(user, text, lat, lon)
+    #    print "Created new Ticket!"
 
     def checking_possible_spam(self):
         pass
