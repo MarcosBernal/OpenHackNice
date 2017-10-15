@@ -1,12 +1,9 @@
-from twitter_auth import auth, api
-import tweepy
-from twitter_streamer import MyListener, MyManager
+from twitter_streamer import TwitterStream
 from multiprocessing import Process
 
 
 def twitter_streaming():
-    manager = MyManager(api)
-    twitter_stream = tweepy.Stream(auth, MyListener("python.json", manager))
+    twitter_stream = TwitterStream(storing_filename="python.json")
     twitter_stream.filter(track=['@RHIME_OpenHack'])
 
 

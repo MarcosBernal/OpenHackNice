@@ -1,14 +1,16 @@
 import json
 import random
+from tweepy import Stream
 from tweepy.streaming import StreamListener
+from twitter_auth import auth, api
 from sfCreateTicket import create_sf_ticket
 
 
 class MyListener(StreamListener):
-    def __init__(self, file_name, manager):
+    def __init__(self, storing_filename, api):
         super(MyListener, self).__init__()
-        self.file_name = file_name
-        self.manager = manager
+        self.storing_filename = storing_filename
+        self.api = api
 
     def on_data(self, data):
         try:
@@ -16,7 +18,7 @@ class MyListener(StreamListener):
                 f.write(data)
                 tweet = json.loads(data.decode('utf-8'))
                 print("Received new tweet", tweet['text'], tweet['user'])
-                self.manager.analyse_new_tweet(tweet)
+                self.analyse_new_tweet(tweet)
                 print("Analyzed new tweet")
                 return True
         except BaseException as e:
@@ -32,11 +34,6 @@ class MyListener(StreamListener):
             print("Unknown error", status_code)
             # returning False in on_data s the stream
             return False
-
-
-class MyManager:
-    def __init__(self, api):
-        self.api = api
 
     def analyse_new_tweet(self, tweet):
         text = tweet['text']
@@ -78,5 +75,15 @@ class MyManager:
     def get_position(self, tweet):
         if tweet['geo'] is not None:
             return tweet['geo']['coordinates']
+        elif tweet['place'] is not None:
+            return tweet['place']
         else:
             return None
+
+
+class TwitterStream(Stream):
+    def __init__(self, storing_filename):
+        self.api = api
+        self.auth = auth
+        self.listener = MyListener(storing_filename, self.api)
+        super(self.auth, self.listener)

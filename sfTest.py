@@ -6,9 +6,9 @@ url = "https://eu11.salesforce.com/services/apexrest/openAPI/customer"
 
 headers = {
     'x-prettyprint': "1",
-    'authorization': authorization,
+    'authorization': "Bearer " + authorization,
     'cache-control': "no-cache",
-    'postman-token': postman_token
+    #'postman-token': postman_token
     }
 
 response = requests.request("GET", url, headers=headers)

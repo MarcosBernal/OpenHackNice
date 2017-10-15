@@ -1,5 +1,6 @@
 import unittest, sys, inspect
 import twitter_auth
+import authentication_keys
 
 
 class TestTwitterIntegration(unittest.TestCase):
@@ -31,6 +32,14 @@ class TestTwitterIntegration(unittest.TestCase):
 class TestSalesForceAPIs(unittest.TestCase):
 
     def test_auth_connection(self):
+        self.assertTrue(inspect.ismodule(authentication_keys), msg="authentication_keys file was not found. Keys are needed in that file")
+
+        self.assertEqual()
+        self.assertTrue(hasattr(twitter_auth, 'api'), msg="api(twitter) could not be loaded. Maybe a wrong token or key")
+
+        id = twitter_auth.api.me()._json['id']
+        self.assertEqual(id._json['id'], 863804439945244672, msg="Error retrieving the twitter ID from account")
+
         pass
 
     def test_available_openapi(self):
