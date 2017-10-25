@@ -38,3 +38,25 @@ def create_sf_ticket(handle, text, lat, lon):
 
     # Example
     # create_sf_ticket("iveronar", "test report from twitter!", "1.23", "3.21")
+
+class TroubleTicket:
+    def __init__(self, json):
+        self.user = json['twitterHandle'] # User that created the ticket
+        self.reason = json['reason']      # The reason why the ticket was opened (water leaked or dry space)
+        self.description = json['description']   # Additional text
+        self.location = json['location']  # Dictionary that contains the lat and long of the place where the problem arised
+
+    def equal(self, troubleticket):
+        value = False
+        message = ""
+
+        if self.reason == troubleticket.reason and self.location['longitude']==troubleticket.location['longitude'] \
+                and self.location['latitude'] == troubleticket.location['latitude']:
+            value = True
+            message = "Problem already detected, type and location"
+
+        if self.user == troubleticket.user and self.reason == troubleticket.reason:
+            value = True
+            message = "Problem already sent by user"
+
+        return value, message

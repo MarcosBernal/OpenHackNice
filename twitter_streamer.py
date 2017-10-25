@@ -64,7 +64,7 @@ class MyListener(StreamListener):
     #        self.api.update_status(status=tweet)
 
     def trigger_new_case(self, user, text, lat, lon, image):
-        print "Created?? new Ticket!"
+        print "Created?? new Ticket! with" + user + " text " + text + " lat and lon " + lat + lon + " image " + image
         return
     #    create_sf_ticket(user, text, lat, lon)
     #    print "Created new Ticket!"
@@ -86,4 +86,4 @@ class TwitterStream(Stream):
         self.api = api
         self.auth = auth
         self.listener = MyListener(storing_filename, self.api)
-        super(self.auth, self.listener)
+        super(TwitterStream, self).__init__(self.auth, self.listener)

@@ -8,8 +8,7 @@ headers = {
     'x-prettyprint': "1",
     'content-type': "application/json",
     'authorization': authorization,
-    'cache-control': "no-cache",
-    'postman-token': postman_token
+    'cache-control': "no-cache"
     }
 
 

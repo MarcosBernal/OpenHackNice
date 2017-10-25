@@ -1,6 +1,7 @@
 import unittest, sys, inspect
 import twitter_auth
 import authentication_keys
+import salesforce_manager
 
 
 class TestTwitterIntegration(unittest.TestCase):
@@ -34,7 +35,6 @@ class TestSalesForceAPIs(unittest.TestCase):
     def test_auth_connection(self):
         self.assertTrue(inspect.ismodule(authentication_keys), msg="authentication_keys file was not found. Keys are needed in that file")
 
-        self.assertEqual()
         self.assertTrue(hasattr(twitter_auth, 'api'), msg="api(twitter) could not be loaded. Maybe a wrong token or key")
 
         id = twitter_auth.api.me()._json['id']
@@ -48,6 +48,15 @@ class TestSalesForceAPIs(unittest.TestCase):
 
     def test_split(self):
         pass
+
+    def test_class_trouble_ticket(self):
+        ticket1 = salesforce_manager.TroubleTicket({'twitterHandle': 'user', 'reason': 'reason', 'description': 'description',
+                                                    'location': {'latitude': 5.5, 'longitude': 7, 'place': 'Nowhere'}})
+        ticket2 = salesforce_manager.TroubleTicket({'twitterHandle': 'user', 'reason': 'reason', 'description': 'description',
+                                                    'location': {'latitude': 5.5, 'longitude': 7, 'place': 'Nowhere'}})
+        self.assertTrue(ticket1.equal(ticket1))
+        self.assertTrue(ticket1.equal(ticket2))
+        self.assertTrue(ticket2.equal(ticket1))
 
 
 if __name__ == "__main__":
